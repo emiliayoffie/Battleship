@@ -1,5 +1,5 @@
 {
-    "name": "@emiliayoffie/battleship",
+    "name": "@emiliayoffie/Battleship",
     "private": false,
     "version": "0.0.1",
     "type": "module",
@@ -7,7 +7,6 @@
       "dev": "vite",
       "build": "tsc && vite build",
       "preview": "vite preview",
-      "test": "vitest",
       "lint": "eslint --ext js,jsx,ts,tsx src",
       "typecheck": "tsc --noEmit",
       "new": "new-component -l 'ts'",

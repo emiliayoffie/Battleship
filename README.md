@@ -1,11 +1,12 @@
 # Battleship
-A simplified version of the classic Battleship game. A work in progress!
+A simplified version of the classic Battleship game. A work in progress.
 
 ## Overview 
 A single player is allowed to play against a computer opponent. The computer makes random moves, though once it has successfully hit a ship, it targets the surrounding cells to try until the ship has been sunk. 
 
 The opponent has a board of their own which the user can see, but cannot see the ships for (unless they land a hit), similar to a standard battleship game.
 
+- - -
 ### Tech Stack 
 - TypeScript 
 - React + OpenColor + CSS 
