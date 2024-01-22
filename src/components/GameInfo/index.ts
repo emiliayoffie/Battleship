@@ -1,2 +1,2 @@
-export * from './GameInfo/GameInfo';
-export { default } from './GameInfo/GameInfo';
+export * from './GameInfo';
+export { default } from './GameInfo';

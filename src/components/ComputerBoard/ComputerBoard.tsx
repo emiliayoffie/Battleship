@@ -39,7 +39,11 @@ const ComputerBoard = ({
   /** Add hits by player onto the computer's board layout */
   compLayout = hitsByPlayer.reduce(
     (prevLayout, currentHit) =>
-      putVesselInLayout(prevLayout, currentHit, currentHit.type),
+      putVesselInLayout(
+        prevLayout,
+        currentHit,
+        currentHit.type as SQUARE_STATE
+      ),
     compLayout
   );
 
@@ -89,7 +93,7 @@ const ComputerBoard = ({
     return (
       <div
         className={
-          stateToClass[square] === SQUARE_STATE.hit  ||
+          stateToClass[square] === SQUARE_STATE.hit ||
           stateToClass[square] === SQUARE_STATE.miss ||
           stateToClass[square] === SQUARE_STATE.ship_sunk
             ? `square ${stateToClass[square]}`

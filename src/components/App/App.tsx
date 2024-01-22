@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { render } from 'react-dom';
 import WelcomeScreen from '../WelcomeScreen/WelcomeScreen';
 import { Game } from '../Game/Game';
 import Header from '../Header/Header';

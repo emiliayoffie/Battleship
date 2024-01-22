@@ -9,8 +9,8 @@ import { Hit, Vessel } from '@/types/types';
 interface GameViewProps {
   availableShips: Vessel[];
   selectShip: (shipName: string) => void;
-  currentlyPlacing: Vessel | null;
-  setCurrentlyPlacing: React.Dispatch<React.SetStateAction<Vessel | null>>;
+  currentlyPlacing: Vessel | undefined;
+  setCurrentlyPlacing: React.Dispatch<React.SetStateAction<Vessel | undefined>>;
   rotateShip: React.MouseEventHandler<HTMLDivElement>;
   placeShip: (ship: Vessel) => void;
   placedShips: Vessel[];
@@ -31,7 +31,7 @@ interface GameViewProps {
   totalHitsToWin: number;
 }
 
-export const GameView = ({
+const GameView = ({
   availableShips,
   selectShip,
   currentlyPlacing,
@@ -54,7 +54,7 @@ export const GameView = ({
 }: GameViewProps) => {
   return (
     <section id="game-screen">
-        {/* When not in the placement phase, show game info and computer board */}
+      {/* When not in the placement phase, show game info and computer board */}
       <div id={gameState === 'placement' ? 'board-placement' : undefined}>
         <PlayerBoard
           currentlyPlacing={currentlyPlacing}
@@ -89,8 +89,8 @@ export const GameView = ({
           />
         </>
       ) : (
-        <> 
-         {/* During the placement phase, show the player fleet */}
+        <>
+          {/* During the placement phase, show the player fleet */}
           <PlayerFleet
             availableShips={availableShips}
             selectShip={selectShip}
@@ -103,3 +103,5 @@ export const GameView = ({
     </section>
   );
 };
+
+export default GameView;

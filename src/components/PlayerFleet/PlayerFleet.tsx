@@ -7,7 +7,7 @@ import { Vessel } from '@/types/types';
 interface PlayerFleetProps {
   availableShips: Vessel[];
   selectShip: (shipName: string) => void;
-  currentlyPlacing: Vessel | null;
+  currentlyPlacing: Vessel | undefined;
   startTurn: () => void;
   startAgain: () => void;
 }
@@ -27,7 +27,7 @@ const PlayerFleet = ({
       selectShip={selectShip}
       key={shipName}
       isCurrentlyPlacing={
-        currentlyPlacing && currentlyPlacing.name === shipName
+        !!(currentlyPlacing && currentlyPlacing.name === shipName)
       }
       shipName={shipName}
       availableShips={availableShips}
@@ -55,7 +55,9 @@ const PlayerFleet = ({
 
   return (
     <div id="available-ships">
-      {availableShips.length > 0 && <div className="game-info-box-title">Your Fleet</div>}
+      {availableShips.length > 0 && (
+        <div className="game-info-box-title">Your Fleet</div>
+      )}
       {availableShips.length > 0 ? fleet : playButton}
     </div>
   );

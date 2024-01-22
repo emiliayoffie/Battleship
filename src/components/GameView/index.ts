@@ -1,2 +1,2 @@
-export * from './Game';
-export { default } from './GameView/GameView';
+export * from './GameView';
+export { default } from './GameView';
