@@ -24,10 +24,10 @@ const GameInfo = ({
   setIsModalOpen,
   totalHitsToWin,
 }: GameInfoProps) => {
-  let numberOfSuccessfulHits = hitsByPlayer.filter(
+  const numberOfSuccessfulHits = hitsByPlayer.filter(
     (hit: Hit) => hit.type === SQUARE_STATE.hit
   ).length;
-  let successfulComputerHits = hitsByComputer.filter(
+  const successfulComputerHits = hitsByComputer.filter(
     (hit: Hit) => hit.type === SQUARE_STATE.hit
   ).length;
 
@@ -35,7 +35,7 @@ const GameInfo = ({
     setIsModalOpen(false);
     startAgain();
   };
-  let gameInfoPanel = (
+  const gameInfoPanel = (
     <div>
       <div id="firing-info">
         <ul></ul>

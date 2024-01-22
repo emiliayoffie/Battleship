@@ -9,7 +9,7 @@
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
   gap: 3px;
-  width: calc(300px + 5px * 9); 
+  width: calc(300px + 5px * 9);
   height: calc(300px + 5px * 9);
   margin: 1em 2em 2em 1em;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
@@ -74,7 +74,7 @@
   background-color: var(--oc-gray-8);
   border: 1px solid var(--oc-gray-7);
   /* Shake animation for sunk ships */
-  animation: shake 50ms 6 alternate backwards; 
+  animation: shake 50ms 6 alternate backwards;
 }
 
 /* Forbidden square */
