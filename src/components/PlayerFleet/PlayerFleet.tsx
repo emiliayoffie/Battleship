@@ -19,7 +19,7 @@ const PlayerFleet = ({
   startTurn,
   startAgain,
 }: PlayerFleetProps) => {
-  let shipsLeft = availableShips.map((ship) => ship.name);
+  const shipsLeft = availableShips.map((ship) => ship.name);
 
   /** Generate ShipSelect components for each available ship */
   const ShipSelects = shipsLeft.map((shipName) => (

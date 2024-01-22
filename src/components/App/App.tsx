@@ -4,7 +4,6 @@ import { Game } from '../Game/Game';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
-
 import '../../css/style.css';
 
 const App = () => {

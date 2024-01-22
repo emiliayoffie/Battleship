@@ -116,7 +116,7 @@ export const Game = () => {
 
   /** Player Actions */
   const selectShip = (shipName: string) => {
-    let shipIdx = availableShips.findIndex((ship) => ship.name === shipName);
+    const shipIdx = availableShips.findIndex((ship) => ship.name === shipName);
     const shipToPlace = availableShips[shipIdx];
 
     setCurrentlyPlacing({
@@ -168,7 +168,7 @@ export const Game = () => {
 
   /** Computer Actions */
   const generateComputerShips = () => {
-    let placedComputerShips = placeAllComputerShips(
+    const placedComputerShips = placeAllComputerShips(
       AVAILABLE_SHIPS.slice().map((ship) => ({
         ...ship,
         position: undefined,
@@ -179,7 +179,7 @@ export const Game = () => {
   };
 
   const computerFire = (index: number, layout: SQUARE_STATE[]): void => {
-    let computerHits: Hit[] = [...hitsByComputer];
+    const computerHits: Hit[] = [...hitsByComputer];
 
     if (layout[index] === SQUARE_STATE.ship) {
       computerHits.push({

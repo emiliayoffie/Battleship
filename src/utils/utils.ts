@@ -45,7 +45,7 @@ export const vesselIndices = (vessel: Vessel): number[] => {
   if (!vessel.position) {
     return [];
   }
-  let indices: number[] = [];
+  const indices: number[] = [];
   for (let i = 0; i < vessel.length; i++) {
     indices.push(
       vessel.orientation === 'vertical'
@@ -59,9 +59,8 @@ export const vesselIndices = (vessel: Vessel): number[] => {
 /** Check if a vessel is within the board boundaries */
 export const isWithinBounds = (vessel: Vessel): boolean => {
   if (!vessel.position) {
-     return false;
-  }
-  else 
+    return false;
+  } else
     return (
       (vessel.orientation === 'vertical' &&
         vessel.position.y + vessel.length <= BOARD_ROWS) ||
@@ -70,10 +69,9 @@ export const isWithinBounds = (vessel: Vessel): boolean => {
     );
 };
 
-function isVessel(item: any): item is Vessel {
+function isVessel(item: Hit | Vessel): item is Vessel {
   return (item as Vessel).orientation !== undefined;
 }
-
 
 /** Place or update a vessel on the board layout */
 export const putVesselInLayout = (
@@ -85,7 +83,11 @@ export const putVesselInLayout = (
 
   if (isVessel(item)) {
     // The item is a Vessel
-    if (type === SQUARE_STATE.ship || type === SQUARE_STATE.forbidden || type === SQUARE_STATE.ship_sunk) {
+    if (
+      type === SQUARE_STATE.ship ||
+      type === SQUARE_STATE.forbidden ||
+      type === SQUARE_STATE.ship_sunk
+    ) {
       vesselIndices(item).forEach((idx) => {
         newLayout[idx] = type;
       });
@@ -99,7 +101,6 @@ export const putVesselInLayout = (
 
   return newLayout;
 };
-
 
 /** Check if a placement position is free of other vessels */
 export const isPlaceFree = (
@@ -135,9 +136,12 @@ export const canBePlaced = (
 /** Place all computer ships randomly on the board */
 export const placeAllComputerShips = (computerShips: Vessel[]): Vessel[] => {
   let compLayout: SQUARE_STATE[] = generateEmptyBoard();
+  const MAX_ATTEMPTS = 1000;
 
   return computerShips.map((vessel: Vessel) => {
-    while (true) {
+    let attempts = 0;
+    /** If a ship can't be placed after 1000 attempts, the function will throw an error to prevent the possibility of an infinite loop. */
+    while (attempts < MAX_ATTEMPTS) {
       const decoratedShip: Vessel = randomizeShipProps(vessel);
 
       if (canBePlaced(decoratedShip, compLayout)) {
@@ -148,13 +152,15 @@ export const placeAllComputerShips = (computerShips: Vessel[]): Vessel[] => {
         );
         return { ...decoratedShip, placed: true };
       }
+      attempts++;
     }
+    throw new Error(`Could not place ship after ${MAX_ATTEMPTS} attempts`);
   });
 };
 
 /** Generate a random orientation for computer ships */
 export const generateRandomOrientation = (): 'vertical' | 'horizontal' => {
-  let randomNumber = Math.floor(Math.random() * Math.floor(2));
+  const randomNumber = Math.floor(Math.random() * Math.floor(2));
   return randomNumber === 1 ? 'vertical' : 'horizontal';
 };
 
@@ -165,7 +171,7 @@ export const generateRandomIndex = (value = BOARD) => {
 
 /** Randomly assign properties to a ship */
 export const randomizeShipProps = (vessel: Vessel) => {
-  let randomStartIndex = generateRandomIndex();
+  const randomStartIndex = generateRandomIndex();
 
   return {
     ...vessel,
@@ -179,7 +185,7 @@ export const placeCPUShipOnBoard = (
   vessel: Vessel,
   compLayout: BoardLayout
 ) => {
-  let newCompLayout = compLayout.slice();
+  const newCompLayout = compLayout.slice();
 
   vesselIndices(vessel).forEach((idx) => {
     newCompLayout[idx] = SQUARE_STATE.ship;
@@ -189,13 +195,13 @@ export const placeCPUShipOnBoard = (
 
 /** Determine neighboring squares for a given set of coordinates (used for computer's firing logic) */
 export const getNeighbors = (coords: Coordinates) => {
-  let firstRow = coords.y === 0;
-  let lastRow = coords.y === 9;
-  let firstColumn = coords.x === 0;
-  let lastColumn = coords.x === 9;
+  const firstRow = coords.y === 0;
+  const lastRow = coords.y === 9;
+  const firstColumn = coords.x === 0;
+  const lastColumn = coords.x === 9;
 
   /**  Check each direction and add to neighbors if within board bounds */
-  let neighbors = [];
+  const neighbors = [];
   // coords.y === 0;
   if (firstRow) {
     neighbors.push(
@@ -240,7 +246,7 @@ export const getNeighbors = (coords: Coordinates) => {
     );
   }
   /** Convert coordinates to board indices and filter out duplicates */
-  let filteredResult = [
+  const filteredResult = [
     ...new Set(
       neighbors
         .map((coords) => coordsToIndex(coords))
@@ -252,7 +258,6 @@ export const getNeighbors = (coords: Coordinates) => {
 };
 
 export const isShipSunk = (vessel: Vessel, hits: Hit[]): boolean => {
-
   if (!vessel.position) {
     return false;
   }

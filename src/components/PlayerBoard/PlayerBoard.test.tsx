@@ -1,22 +1,16 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import PlayerBoard from './PlayerBoard'; 
+import PlayerBoard from './PlayerBoard';
 import { generateEmptyBoard } from '../../utils/utils';
 
 
-describe('PlayerBoard', () => {
+describe('ComputerBoard', () => {
+  const mockPlaceShip = jest.fn();
   const mockSetCurrentlyPlacing = jest.fn();
   const mockRotateShip = jest.fn();
-  const mockPlaceShip = jest.fn();
 
   const props = {
-    currentlyPlacing: { 
-      name: 'testShip', 
-      length: 3, 
-      orientation: 'vertical', 
-      placed: null, 
-      position: [0, 0] 
-    },
+    currentlyPlacing: {},
     setCurrentlyPlacing: mockSetCurrentlyPlacing,
     rotateShip: mockRotateShip,
     placeShip: mockPlaceShip,
@@ -24,14 +18,14 @@ describe('PlayerBoard', () => {
     hitsByComputer: [],
   };
 
-  it('renders without crashing', () => {
+  it('renders the component', () => {
     const { getByText } = render(<PlayerBoard {...props} />);
-    expect(getByText('Player')).toBeInTheDocument();
+    expect(getByText('Computer')).toBeTruthy();
   });
 
   it('renders the correct number of squares', () => {
-    const { getAllByTestId } = render(<PlayerBoard {...props} />);
-    const squares = getAllByTestId(/square-/);
+    const { container } = render(<PlayerBoard {...props} />);
+    const squares = container.querySelectorAll('.square');
     expect(squares.length).toBe(generateEmptyBoard().length);
   });
 });
