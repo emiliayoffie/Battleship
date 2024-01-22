@@ -6,9 +6,9 @@ import {
   indexToCoords,
   calculateOverhang,
   canBePlaced,
-} from '../../utils/utils';
+} from '@/utils/utils';
 
-import { SQUARE_STATE, Vessel, Hit } from '../../types/types';
+import { SQUARE_STATE, Vessel, Hit } from '@/types/types';
 
 /** Render's player's board and handles ship placement
  *  * To do: move logic for generating computer board layout to separate function or hook to make this component cleaner and more focused */
@@ -43,11 +43,15 @@ const PlayerBoard = ({
   /** Adds hits by the computer onto the player's board */
   layout = hitsByComputer.reduce(
     (prevLayout, currentHit) =>
-      putVesselInLayout(prevLayout, currentHit, currentHit.type as SQUARE_STATE),
+      putVesselInLayout(
+        prevLayout,
+        currentHit,
+        currentHit.type as SQUARE_STATE
+      ),
     layout
   );
 
-/** Update the layout with sunk ships */
+  /** Update the layout with sunk ships */
   layout = placedShips.reduce(
     (prevLayout, currentShip) =>
       currentShip.sunk
@@ -58,10 +62,10 @@ const PlayerBoard = ({
 
   /** Determine if the currently placing ship is over the board */
   const isPlacingOverBoard = currentlyPlacing?.position != null;
-    /** Check if the current ship can be placed in its intended position */
+  /** Check if the current ship can be placed in its intended position */
   const canPlaceCurrentShip =
     isPlacingOverBoard && canBePlaced(currentlyPlacing, layout);
-    /**Update the layout to show a preview of the ship placement*/
+  /**Update the layout to show a preview of the ship placement*/
   if (isPlacingOverBoard) {
     layout = putVesselInLayout(
       layout,
@@ -76,7 +80,7 @@ const PlayerBoard = ({
     );
   }
 
-/** Map the board layout to square elements */
+  /** Map the board layout to square elements */
   let squares = layout.map((square, index) => (
     <div
       onMouseDown={rotateShip}

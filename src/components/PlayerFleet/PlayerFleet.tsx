@@ -1,6 +1,6 @@
 import React from 'react';
 import ShipSelect from '../ShipSelect/ShipSelect';
-import { Vessel } from '../../types/types';
+import { Vessel } from '@/types/types';
 
 /** Displays the Player's Fleet */
 
@@ -26,7 +26,9 @@ const PlayerFleet = ({
     <ShipSelect
       selectShip={selectShip}
       key={shipName}
-      isCurrentlyPlacing={!!(currentlyPlacing && currentlyPlacing.name === shipName)}
+      isCurrentlyPlacing={
+        !!(currentlyPlacing && currentlyPlacing.name === shipName)
+      }
       shipName={shipName}
       availableShips={availableShips}
     />
@@ -53,7 +55,9 @@ const PlayerFleet = ({
 
   return (
     <div id="available-ships">
-      {availableShips.length > 0 && <div className="game-info-box-title">Your Fleet</div>}
+      {availableShips.length > 0 && (
+        <div className="game-info-box-title">Your Fleet</div>
+      )}
       {availableShips.length > 0 ? fleet : playButton}
     </div>
   );

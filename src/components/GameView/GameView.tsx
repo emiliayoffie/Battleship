@@ -4,7 +4,7 @@ import PlayerFleet from '../PlayerFleet/PlayerFleet';
 import PlayerBoard from '../PlayerBoard/PlayerBoard';
 import ComputerBoard from '../ComputerBoard/ComputerBoard';
 import GameInfo from '../GameInfo/GameInfo';
-import { Hit, Vessel } from '../../types/types';
+import { Hit, Vessel } from '@/types/types';
 
 interface GameViewProps {
   availableShips: Vessel[];
@@ -54,7 +54,7 @@ const GameView = ({
 }: GameViewProps) => {
   return (
     <section id="game-screen">
-        {/* When not in the placement phase, show game info and computer board */}
+      {/* When not in the placement phase, show game info and computer board */}
       <div id={gameState === 'placement' ? 'board-placement' : undefined}>
         <PlayerBoard
           currentlyPlacing={currentlyPlacing}
@@ -89,8 +89,8 @@ const GameView = ({
           />
         </>
       ) : (
-        <> 
-         {/* During the placement phase, show the player fleet */}
+        <>
+          {/* During the placement phase, show the player fleet */}
           <PlayerFleet
             availableShips={availableShips}
             selectShip={selectShip}

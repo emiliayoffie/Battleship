@@ -1,5 +1,5 @@
 import React from 'react';
-import { Vessel } from '../../types/types';
+import { Vessel } from '@/types/types';
 
 /** Displays the currently selected ship */
 
@@ -39,4 +39,3 @@ const ShipSelect = ({
 };
 
 export default ShipSelect;
-

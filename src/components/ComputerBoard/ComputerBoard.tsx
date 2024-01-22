@@ -5,9 +5,9 @@ import {
   indexToCoords,
   updateSunkShips,
   putVesselInLayout,
-} from '../../utils/utils';
+} from '@/utils/utils';
 
-import { SQUARE_STATE, Hit, Vessel } from '../../types/types';
+import { SQUARE_STATE, Hit, Vessel } from '@/types/types';
 
 /** Renders the computer's board.
  * To do: move logic for generating computer board layout to separate function or hook to make this component cleaner and more focused */
@@ -39,7 +39,11 @@ const ComputerBoard = ({
   /** Add hits by player onto the computer's board layout */
   compLayout = hitsByPlayer.reduce(
     (prevLayout, currentHit) =>
-      putVesselInLayout(prevLayout, currentHit, currentHit.type as SQUARE_STATE),
+      putVesselInLayout(
+        prevLayout,
+        currentHit,
+        currentHit.type as SQUARE_STATE
+      ),
     compLayout
   );
 
@@ -89,7 +93,7 @@ const ComputerBoard = ({
     return (
       <div
         className={
-          stateToClass[square] === SQUARE_STATE.hit  ||
+          stateToClass[square] === SQUARE_STATE.hit ||
           stateToClass[square] === SQUARE_STATE.miss ||
           stateToClass[square] === SQUARE_STATE.ship_sunk
             ? `square ${stateToClass[square]}`

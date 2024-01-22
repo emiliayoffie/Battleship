@@ -11,38 +11,38 @@ import {
   getNeighbors,
   updateSunkShips,
   coordsToIndex,
-} from '../../utils/utils';
+} from '@/utils/utils';
 
-import { SQUARE_STATE, Vessel, Hit } from '../../types/types';
+import { SQUARE_STATE, Vessel, Hit } from '@/types/types';
 
 const AVAILABLE_SHIPS: Vessel[] = [
   {
     name: 'carrier',
     length: 5,
     placed: null,
-    orientation: 'horizontal', 
-    // position: undefined, 
+    orientation: 'horizontal',
+    // position: undefined,
   },
   {
     name: 'battleship',
     length: 4,
     placed: null,
-    orientation: 'horizontal', 
-    position: undefined, 
+    orientation: 'horizontal',
+    position: undefined,
   },
   {
     name: 'cruiser',
     length: 3,
     placed: null,
-    orientation: 'horizontal', 
-    position: undefined, 
+    orientation: 'horizontal',
+    position: undefined,
   },
   {
     name: 'submarine',
     length: 3,
     placed: null,
-    orientation: 'horizontal', 
-    position: undefined, 
+    orientation: 'horizontal',
+    position: undefined,
   },
 ];
 
@@ -52,10 +52,12 @@ export const Game = () => {
 
   const { isModalOpen, setIsModalOpen } = useContext(ModalContext);
 
-  const [currentlyPlacing, setCurrentlyPlacing] = useState<Vessel | undefined>(undefined);
+  const [currentlyPlacing, setCurrentlyPlacing] = useState<Vessel | undefined>(
+    undefined
+  );
   const [placedShips, setPlacedShips] = useState<Vessel[]>([]);
   const [availableShips, setAvailableShips] = useState<Vessel[]>(
-    AVAILABLE_SHIPS.map(ship => ({
+    AVAILABLE_SHIPS.map((ship) => ({
       ...ship,
       position: undefined,
       orientation: 'horizontal',
@@ -166,11 +168,12 @@ export const Game = () => {
 
   /** Computer Actions */
   const generateComputerShips = () => {
-    let placedComputerShips = placeAllComputerShips(AVAILABLE_SHIPS.slice().map(ship => ({ 
-      ...ship, 
-      position: undefined, 
-      orientation: 'horizontal',
-    }))
+    let placedComputerShips = placeAllComputerShips(
+      AVAILABLE_SHIPS.slice().map((ship) => ({
+        ...ship,
+        position: undefined,
+        orientation: 'horizontal',
+      }))
     );
     setComputerShips(placedComputerShips);
   };
@@ -208,17 +211,20 @@ export const Game = () => {
 
     layout = hitsByComputer.reduce(
       (prevLayout, currentHit) =>
-        putVesselInLayout(prevLayout, currentHit, currentHit.type as SQUARE_STATE),
+        putVesselInLayout(
+          prevLayout,
+          currentHit,
+          currentHit.type as SQUARE_STATE
+        ),
       layout
     );
 
-    layout = placedShips.reduce(
-      (prevLayout, currentShip) => {
-        const squareState = currentShip.sunk ? SQUARE_STATE.ship_sunk : SQUARE_STATE.ship;
-        return putVesselInLayout(prevLayout, currentShip, squareState);
-      },
-      layout
-    );
+    layout = placedShips.reduce((prevLayout, currentShip) => {
+      const squareState = currentShip.sunk
+        ? SQUARE_STATE.ship_sunk
+        : SQUARE_STATE.ship;
+      return putVesselInLayout(prevLayout, currentShip, squareState);
+    }, layout);
 
     const successfulComputerHits = hitsByComputer.filter(
       (hit: Hit) => hit.type === SQUARE_STATE.hit
