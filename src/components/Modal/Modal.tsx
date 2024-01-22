@@ -2,16 +2,15 @@ import React, { ReactNode } from 'react';
 
 interface ModalProps {
   isOpen: boolean;
-  onClose: () => void;
   children: ReactNode;
 }
 
-const Modal = ({ isOpen, onClose, children }: ModalProps) => {
+const Modal = ({ isOpen, children }: ModalProps) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()}>
+    <div className="modal-overlay">
+      <div className="modal-content">
         {children}
       </div>
     </div>
@@ -19,4 +18,3 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
 };
 
 export default Modal;
- 
