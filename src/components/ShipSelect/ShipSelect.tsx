@@ -22,7 +22,7 @@ const ShipSelect = ({
   /** Generate an array of div elements representing the squares of the ship */
   const shipLength = new Array(ship.length).fill('ship');
   const allSelectedShipSquares = shipLength.map((item, index) => (
-    <div className="small-square" />
+    <div className="small-square" key={index} />
   ));
 
   return (

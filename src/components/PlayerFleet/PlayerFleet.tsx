@@ -1,5 +1,5 @@
 import React from 'react';
-import ShipSelect from '../Ship/ShipSelect';
+import ShipSelect from '../ShipSelect/ShipSelect';
 import { Vessel } from '@/types/types';
 
 /** Displays the Player's Fleet */
