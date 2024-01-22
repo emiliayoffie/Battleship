@@ -240,7 +240,7 @@ export const Game = () => {
     setTimeout(() => {
       computerFire(target, layout);
       changeTurn();
-    }, 300);
+    }, 400);
   };
 
   /** Reset to play again */
