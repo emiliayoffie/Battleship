@@ -1,0 +1,84 @@
+/* Importing open color styles */
+@import './open-color.css';
+
+/* BOARD STYLES */
+
+/* Styles for the game board */
+.board {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 3px;
+  width: calc(300px + 5px * 9); 
+  height: calc(300px + 5px * 9);
+  margin: 1em 2em 2em 1em;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Styling for individual squares on the board */
+.board div {
+  box-sizing: border-box;
+  background: var(--oc-gray-1);
+  border: 1px solid var(--oc-gray-2);
+  transition: background-color 100ms ease-in-out;
+  border-color: var(--oc-gray-6);
+}
+
+/* Animation for 'shake' effect on sunk ships */
+@keyframes shake {
+  from {
+    transform: translate(18%, 20%);
+  }
+  to {
+    transform: translate(-18%, 20%);
+  }
+}
+
+/* STYLES FOR SQUARE STATES */
+
+/* Empty square */
+.board .empty {
+  background-color: var(--oc-gray-0);
+}
+
+/* Hover effect for empty square */
+.board .empty:hover {
+  background-color: var(--oc-teal-2);
+}
+
+/* Ship square */
+.board .ship {
+  background-color: var(--oc-blue-4);
+  border: 1px solid var(--oc-blue-5);
+}
+
+/* Hover effect for ship square */
+.board .ship:hover {
+  background-color: var(--oc-blue-7);
+}
+
+/* Hit square */
+.board .hit {
+  background-color: var(--oc-red-5);
+  border: 1px solid var(--oc-red-6);
+}
+
+/* Miss square */
+.board .miss {
+  background-color: var(--oc-gray-4);
+  border: 1px solid var(--oc-gray-2);
+}
+
+/* Sunk ship square */
+.board .ship-sunk {
+  background-color: var(--oc-gray-8);
+  border: 1px solid var(--oc-gray-7);
+  /* Shake animation for sunk ships */
+  animation: shake 50ms 6 alternate backwards; 
+}
+
+/* Forbidden square */
+.board .forbidden {
+  background-color: var(--oc-red-2);
+  border: 1px solid var(--oc-red-3);
+}
