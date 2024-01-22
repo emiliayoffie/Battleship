@@ -12,9 +12,7 @@ const Modal = ({ isOpen, children }: ModalProps) => {
 
   return (
     <div className="modal-overlay">
-      <div className="modal-content">
-        {children}
-      </div>
+      <div className="modal-content">{children}</div>
     </div>
   );
 };

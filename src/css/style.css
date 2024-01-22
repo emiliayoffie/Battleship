@@ -45,12 +45,12 @@ main {
   flex-grow: 1;
   margin: auto;
   justify-content: center;
-  display:flex; 
+  display: flex;
   flex-direction: column;
 }
 
 #game-screen {
-  width: 581px;  
+  width: 581px;
   height: 384px;
   display: flex;
   flex-direction: row;
@@ -86,7 +86,7 @@ main {
   font-size: 22px;
   text-transform: uppercase;
   color: var(--oc-red-5);
-  margin-bottom: var(--small-space)
+  margin-bottom: var(--small-space);
 }
 
 .game-info,

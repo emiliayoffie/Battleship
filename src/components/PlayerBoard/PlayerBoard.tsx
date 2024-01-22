@@ -81,7 +81,7 @@ const PlayerBoard = ({
   }
 
   /** Map the board layout to square elements */
-  let squares = layout.map((square, index) => (
+  const squares = layout.map((square, index) => (
     <div
       onMouseDown={rotateShip}
       onClick={() => canPlaceCurrentShip && placeShip(currentlyPlacing)}
