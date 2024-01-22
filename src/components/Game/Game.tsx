@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { GameView } from './GameView';
+import { GameView } from '../GameView/GameView';
 import { ModalContext } from '../Modal/ModalContext';
 import Modal from '../Modal/Modal';
 
@@ -12,7 +12,7 @@ import {
   getNeighbors,
   updateSunkShips,
   coordsToIndex,
-} from '../../utils/utils';
+} from '@/utils/utils';
 
 import { SQUARE_STATE, Vessel, Hit, Ship } from '@/types/types';
 
@@ -151,7 +151,7 @@ export const Game = () => {
     );
   };
 
-/** Computer Actions */
+  /** Computer Actions */
   const generateComputerShips = () => {
     let placedComputerShips = placeAllComputerShips(AVAILABLE_SHIPS.slice());
     setComputerShips(placedComputerShips);
@@ -181,7 +181,7 @@ export const Game = () => {
   const handleComputerTurn = () => {
     changeTurn();
 
-   /** Logic to decide computer's action */
+    /** Logic to decide computer's action */
     let layout: SQUARE_STATE[] = placedShips.reduce(
       (prevLayout, currentShip) =>
         putVesselInLayout(prevLayout, currentShip, SQUARE_STATE.ship),
@@ -221,7 +221,7 @@ export const Game = () => {
           layout[idx] === SQUARE_STATE.ship
       );
 
-   /** If there's a successful hit */
+    /** If there's a successful hit */
     if (potentialTargets.length === 0) {
       const layoutIndices = layout.map(
         (item: SQUARE_STATE, idx: number) => idx
