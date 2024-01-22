@@ -1,13 +1,13 @@
 import React from 'react';
 import ShipSelect from '../ShipSelect/ShipSelect';
-import { Vessel } from '@/types/types';
+import { Vessel } from '../../types/types';
 
 /** Displays the Player's Fleet */
 
 interface PlayerFleetProps {
   availableShips: Vessel[];
   selectShip: (shipName: string) => void;
-  currentlyPlacing: Vessel | null;
+  currentlyPlacing: Vessel | undefined;
   startTurn: () => void;
   startAgain: () => void;
 }
@@ -26,9 +26,7 @@ const PlayerFleet = ({
     <ShipSelect
       selectShip={selectShip}
       key={shipName}
-      isCurrentlyPlacing={
-        currentlyPlacing && currentlyPlacing.name === shipName
-      }
+      isCurrentlyPlacing={!!(currentlyPlacing && currentlyPlacing.name === shipName)}
       shipName={shipName}
       availableShips={availableShips}
     />

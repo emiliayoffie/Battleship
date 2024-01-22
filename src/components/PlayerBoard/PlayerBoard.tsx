@@ -6,9 +6,9 @@ import {
   indexToCoords,
   calculateOverhang,
   canBePlaced,
-} from '@/utils/utils';
+} from '../../utils/utils';
 
-import { SQUARE_STATE, Vessel, Hit } from '@/types/types';
+import { SQUARE_STATE, Vessel, Hit } from '../../types/types';
 
 /** Render's player's board and handles ship placement
  *  * To do: move logic for generating computer board layout to separate function or hook to make this component cleaner and more focused */
@@ -43,7 +43,7 @@ const PlayerBoard = ({
   /** Adds hits by the computer onto the player's board */
   layout = hitsByComputer.reduce(
     (prevLayout, currentHit) =>
-      putVesselInLayout(prevLayout, currentHit, currentHit.type),
+      putVesselInLayout(prevLayout, currentHit, currentHit.type as SQUARE_STATE),
     layout
   );
 

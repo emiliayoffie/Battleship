@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { GameView } from '../GameView/GameView';
+import GameView from '../GameView/GameView';
 import { ModalContext } from '../Modal/ModalContext';
-import Modal from '../Modal/Modal';
 
 import {
   placeAllComputerShips,
@@ -12,30 +11,38 @@ import {
   getNeighbors,
   updateSunkShips,
   coordsToIndex,
-} from '@/utils/utils';
+} from '../../utils/utils';
 
-import { SQUARE_STATE, Vessel, Hit, Ship } from '@/types/types';
+import { SQUARE_STATE, Vessel, Hit } from '../../types/types';
 
-const AVAILABLE_SHIPS: Ship[] = [
+const AVAILABLE_SHIPS: Vessel[] = [
   {
     name: 'carrier',
     length: 5,
     placed: null,
+    orientation: 'horizontal', 
+    // position: undefined, 
   },
   {
     name: 'battleship',
     length: 4,
     placed: null,
+    orientation: 'horizontal', 
+    position: undefined, 
   },
   {
     name: 'cruiser',
     length: 3,
     placed: null,
+    orientation: 'horizontal', 
+    position: undefined, 
   },
   {
     name: 'submarine',
     length: 3,
     placed: null,
+    orientation: 'horizontal', 
+    position: undefined, 
   },
 ];
 
@@ -45,11 +52,17 @@ export const Game = () => {
 
   const { isModalOpen, setIsModalOpen } = useContext(ModalContext);
 
-  const [currentlyPlacing, setCurrentlyPlacing] = useState<Vessel | null>(null);
+  const [currentlyPlacing, setCurrentlyPlacing] = useState<Vessel | undefined>(undefined);
   const [placedShips, setPlacedShips] = useState<Vessel[]>([]);
-  const [availableShips, setAvailableShips] = useState<Ship[]>(AVAILABLE_SHIPS);
+  const [availableShips, setAvailableShips] = useState<Vessel[]>(
+    AVAILABLE_SHIPS.map(ship => ({
+      ...ship,
+      position: undefined,
+      orientation: 'horizontal',
+    }))
+  );
   const [computerShips, setComputerShips] = useState<Vessel[]>([]);
-  const [hitsByPlayer, setHitsByPlayer] = useState<Hit>([]);
+  const [hitsByPlayer, setHitsByPlayer] = useState<Hit[]>([]);
   const [hitsByComputer, setHitsByComputer] = useState<Hit[]>([]);
 
   const totalHitsToWin = 15;
@@ -81,10 +94,10 @@ export const Game = () => {
   useEffect(() => {
     /** Calculate number of successful hits */
     const successfulPlayerHits = hitsByPlayer.filter(
-      (hit: SQUARE_STATE) => hit.type === SQUARE_STATE.hit
+      (hit: Hit) => hit.type === SQUARE_STATE.hit
     ).length;
     const successfulComputerHits = hitsByComputer.filter(
-      (hit: SQUARE_STATE) => hit.type === SQUARE_STATE.hit
+      (hit: Hit) => hit.type === SQUARE_STATE.hit
     ).length;
 
     if (
@@ -107,7 +120,7 @@ export const Game = () => {
     setCurrentlyPlacing({
       ...shipToPlace,
       orientation: 'horizontal',
-      position: null,
+      position: undefined,
     });
   };
 
@@ -124,7 +137,7 @@ export const Game = () => {
       previousShips.filter((ship) => ship.name !== currentlyPlacing.name)
     );
 
-    setCurrentlyPlacing(null);
+    setCurrentlyPlacing(undefined);
   };
 
   const rotateShip = (event: React.MouseEvent) => {
@@ -153,7 +166,12 @@ export const Game = () => {
 
   /** Computer Actions */
   const generateComputerShips = () => {
-    let placedComputerShips = placeAllComputerShips(AVAILABLE_SHIPS.slice());
+    let placedComputerShips = placeAllComputerShips(AVAILABLE_SHIPS.slice().map(ship => ({ 
+      ...ship, 
+      position: undefined, 
+      orientation: 'horizontal',
+    }))
+    );
     setComputerShips(placedComputerShips);
   };
 
@@ -190,28 +208,26 @@ export const Game = () => {
 
     layout = hitsByComputer.reduce(
       (prevLayout, currentHit) =>
-        putVesselInLayout(prevLayout, currentHit, currentHit.type),
+        putVesselInLayout(prevLayout, currentHit, currentHit.type as SQUARE_STATE),
       layout
     );
 
     layout = placedShips.reduce(
-      (prevLayout, currentShip) =>
-        currentShip.sunk
-          ? putVesselInLayout(prevLayout, currentShip, SQUARE_STATE.ship_sunk)
-          : prevLayout,
+      (prevLayout, currentShip) => {
+        const squareState = currentShip.sunk ? SQUARE_STATE.ship_sunk : SQUARE_STATE.ship;
+        return putVesselInLayout(prevLayout, currentShip, squareState);
+      },
       layout
     );
 
     const successfulComputerHits = hitsByComputer.filter(
-      (hit: SQUARE_STATE) => hit.type === SQUARE_STATE.hit
+      (hit: Hit) => hit.type === SQUARE_STATE.hit
     );
 
-    const nonSunkComputerHits = successfulComputerHits.filter(
-      (hit: SQUARE_STATE) => {
-        const hitIndex = coordsToIndex(hit.position);
-        return layout[hitIndex] === SQUARE_STATE.hit;
-      }
-    );
+    const nonSunkComputerHits = successfulComputerHits.filter((hit: Hit) => {
+      const hitIndex = coordsToIndex(hit.position);
+      return layout[hitIndex] === SQUARE_STATE.hit;
+    });
 
     let potentialTargets = nonSunkComputerHits
       .flatMap((hit: Hit) => getNeighbors(hit.position))
@@ -223,9 +239,7 @@ export const Game = () => {
 
     /** If there's a successful hit */
     if (potentialTargets.length === 0) {
-      const layoutIndices = layout.map(
-        (item: SQUARE_STATE, idx: number) => idx
-      );
+      const layoutIndices = layout.map((_, idx: number) => idx);
       potentialTargets = layoutIndices.filter(
         (index: number) =>
           layout[index] === SQUARE_STATE.ship ||
@@ -247,7 +261,7 @@ export const Game = () => {
   const startAgain = () => {
     setGameState('placement');
     setWinner(null);
-    setCurrentlyPlacing(null);
+    setCurrentlyPlacing(undefined);
     setPlacedShips([]);
     setAvailableShips(AVAILABLE_SHIPS);
     setComputerShips([]);
@@ -282,15 +296,6 @@ export const Game = () => {
         setIsModalOpen={setIsModalOpen}
         totalHitsToWin={totalHitsToWin}
       />
-      {isModalOpen && (
-        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-          <div>
-            <h2>Game Over</h2>
-            <p>{winner === 'player' ? 'You win!' : 'You lose!'}</p>
-            <button onClick={startAgain}>Play Again</button>
-          </div>
-        </Modal>
-      )}
     </React.Fragment>
   );
 };

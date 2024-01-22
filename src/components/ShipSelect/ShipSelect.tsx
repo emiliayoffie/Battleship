@@ -1,12 +1,12 @@
 import React from 'react';
-import { Ship } from '@/types/types';
+import { Vessel } from '../../types/types';
 
 /** Displays the currently selected ship */
 
 interface ShipSelectProps {
   shipName: string;
   selectShip: (shipName: string) => void;
-  availableShips: Ship[];
+  availableShips: Vessel[];
   isCurrentlyPlacing: boolean;
 }
 
@@ -20,8 +20,8 @@ const ShipSelect = ({
   const ship = availableShips.find((item) => item.name === shipName);
 
   /** Generate an array of div elements representing the squares of the ship */
-  const shipLength = new Array(ship.length).fill('ship');
-  const allSelectedShipSquares = shipLength.map((item, index) => (
+  const shipLength = new Array(ship?.length).fill('ship');
+  const allSelectedShipSquares = shipLength.map((_, index) => (
     <div className="small-square" key={index} />
   ));
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '../Modal/Modal';
-import { SQUARE_STATE, Hit } from '@/types/types';
+import { SQUARE_STATE, Hit } from '../../types/types';
 
 /** A presentational component for displaying game information. 
  * It shows instructions/tips for ship placement and gameplay. 
@@ -25,10 +25,10 @@ const GameInfo = ({
   totalHitsToWin,
 }: GameInfoProps) => {
   let numberOfSuccessfulHits = hitsByPlayer.filter(
-    (hit: SQUARE_STATE) => hit.type === SQUARE_STATE.hit
+    (hit: Hit) => hit.type === SQUARE_STATE.hit
   ).length;
   let successfulComputerHits = hitsByComputer.filter(
-    (hit: SQUARE_STATE) => hit.type === SQUARE_STATE.hit
+    (hit: Hit) => hit.type === SQUARE_STATE.hit
   ).length;
 
   const closeModalAndRestart = () => {
@@ -48,13 +48,18 @@ const GameInfo = ({
       </div>
     </div>
   );
+  
+  const winner = numberOfSuccessfulHits === totalHitsToWin ? 'player' : 'computer';
+
   return (
     <div id="game-info">
       {numberOfSuccessfulHits === totalHitsToWin ||
       successfulComputerHits === totalHitsToWin ? (
-        <Modal isOpen={isModalOpen} onClose={closeModalAndRestart}>
+        <Modal isOpen={isModalOpen} onClose={closeModalAndRestart} setIsModalOpen={setIsModalOpen}>
           <div>
-            <div className="game-info-box-title">Game Over!</div>
+            <h2>Game Over</h2>
+            <p>{winner === 'player' ? 'You win!' : 'You lose!'}</p>
+            <button onClick={closeModalAndRestart}>Play Again</button>
           </div>
         </Modal>
       ) : (

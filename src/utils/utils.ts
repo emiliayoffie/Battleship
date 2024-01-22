@@ -4,7 +4,7 @@ import {
   Hit,
   BoardLayout,
   Vessel,
-} from '@/types/types';
+} from '../types/types';
 
 /** Constants for board dimensions */
 export const BOARD_ROWS: number = 10;
@@ -42,6 +42,9 @@ export const indexToCoords = (index: number): Coordinates => {
 
 //* Get indices for a vessel's position on the board*/
 export const vesselIndices = (vessel: Vessel): number[] => {
+  if (!vessel.position) {
+    return [];
+  }
   let indices: number[] = [];
   for (let i = 0; i < vessel.length; i++) {
     indices.push(
@@ -55,51 +58,48 @@ export const vesselIndices = (vessel: Vessel): number[] => {
 
 /** Check if a vessel is within the board boundaries */
 export const isWithinBounds = (vessel: Vessel): boolean => {
-  return (
-    (vessel.orientation === 'vertical' &&
-      vessel.position.y + vessel.length <= BOARD_ROWS) ||
-    (vessel.orientation === 'horizontal' &&
-      vessel.position.x + vessel.length <= BOARD_COLUMNS)
-  );
+  if (!vessel.position) {
+     return false;
+  }
+  else 
+    return (
+      (vessel.orientation === 'vertical' &&
+        vessel.position.y + vessel.length <= BOARD_ROWS) ||
+      (vessel.orientation === 'horizontal' &&
+        vessel.position.x + vessel.length <= BOARD_COLUMNS)
+    );
 };
+
+function isVessel(item: any): item is Vessel {
+  return (item as Vessel).orientation !== undefined;
+}
+
 
 /** Place or update a vessel on the board layout */
 export const putVesselInLayout = (
   oldLayout: SQUARE_STATE[],
-  vessel: Vessel,
+  item: Vessel | Hit,
   type: SQUARE_STATE
 ): SQUARE_STATE[] => {
   const newLayout = [...oldLayout];
 
-  const getSquareState = (type: string): SQUARE_STATE => {
-    switch (type) {
-      case 'ship':
-        return SQUARE_STATE.ship;
-      case 'forbidden':
-        return SQUARE_STATE.forbidden;
-      case 'hit':
-        return SQUARE_STATE.hit;
-      case 'miss':
-        return SQUARE_STATE.miss;
-      case 'ship-sunk':
-        return SQUARE_STATE.ship_sunk;
-      default:
-        throw new Error(`Unknown type: ${type}`);
+  if (isVessel(item)) {
+    // The item is a Vessel
+    if (type === SQUARE_STATE.ship || type === SQUARE_STATE.forbidden || type === SQUARE_STATE.ship_sunk) {
+      vesselIndices(item).forEach((idx) => {
+        newLayout[idx] = type;
+      });
     }
-  };
-
-  const squareState = getSquareState(type);
-
-  if (type === 'ship' || type === 'forbidden' || type === 'ship-sunk') {
-    vesselIndices(vessel).forEach((idx) => {
-      newLayout[idx] = squareState;
-    });
-  } else if (type === 'hit' || type === 'miss') {
-    newLayout[coordsToIndex(vessel.position)] = squareState;
+  } else {
+    // The item is a Hit
+    if (type === SQUARE_STATE.hit || type === SQUARE_STATE.miss) {
+      newLayout[coordsToIndex(item.position)] = type;
+    }
   }
 
   return newLayout;
 };
+
 
 /** Check if a placement position is free of other vessels */
 export const isPlaceFree = (
@@ -113,6 +113,9 @@ export const isPlaceFree = (
 
 /** Calculate the overhang of a vessel beyond the board boundaries */
 export const calculateOverhang = (vessel: Vessel): number => {
+  if (!vessel.position) {
+    return 0;
+  }
   return Math.max(
     vessel.orientation === 'vertical'
       ? vessel.position.y + vessel.length - BOARD_ROWS
@@ -213,9 +216,9 @@ export const getNeighbors = (coords: Coordinates) => {
   // coords.x === 0
   if (firstColumn) {
     neighbors.push(
-      { x: coords.x + 1, y: coords.y }, // right
-      { x: coords.x, y: coords.y + 1 }, // down
-      { x: coords.x, y: coords.y - 1 } // up
+      { x: coords.x + 1, y: coords.y } /*right*/,
+      { x: coords.x, y: coords.y + 1 } /*down*/,
+      { x: coords.x, y: coords.y - 1 } /*up*/
     );
   }
 
@@ -246,6 +249,27 @@ export const getNeighbors = (coords: Coordinates) => {
   ];
 
   return filteredResult;
+};
+
+export const isShipSunk = (vessel: Vessel, hits: Hit[]): boolean => {
+
+  if (!vessel.position) {
+    return false;
+  }
+  // Create a set of coordinates representing the ship's position
+  const shipCoordinates = new Set<string>();
+  for (let i = 0; i < vessel.length; i++) {
+    const coord: Coordinates =
+      vessel.orientation === 'horizontal'
+        ? { x: vessel.position.x + i, y: vessel.position.y }
+        : { x: vessel.position.x, y: vessel.position.y + i };
+    shipCoordinates.add(JSON.stringify(coord));
+  }
+
+  // Check if every part of the ship has been hit
+  return Array.from(shipCoordinates).every((coordStr) =>
+    hits.some((hit) => JSON.stringify(hit.position) === coordStr)
+  );
 };
 
 /** Update the sunk state of ships based on hits received */

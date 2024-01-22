@@ -36,10 +36,10 @@
       "noFallthroughCasesInSwitch": true,             
     },
     "baseUrl": ".",
-    "paths": {
-      "@/types/*": ["./src/types/*"],
-      "@/utils/*": ["./src/utils/*"],
-    }, 
+    // "paths": {
+    //   "@/types/*": ["./src/types/*"],
+    //   "@/utils/*": ["./src/utils/*"],
+    // }, 
   
     "include": ["src"],
     "references": [{ "path": "./tsconfig.node.json" }]

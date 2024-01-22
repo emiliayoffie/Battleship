@@ -4,13 +4,13 @@ import PlayerFleet from '../PlayerFleet/PlayerFleet';
 import PlayerBoard from '../PlayerBoard/PlayerBoard';
 import ComputerBoard from '../ComputerBoard/ComputerBoard';
 import GameInfo from '../GameInfo/GameInfo';
-import { Hit, Vessel } from '@/types/types';
+import { Hit, Vessel } from '../../types/types';
 
 interface GameViewProps {
   availableShips: Vessel[];
   selectShip: (shipName: string) => void;
-  currentlyPlacing: Vessel | null;
-  setCurrentlyPlacing: React.Dispatch<React.SetStateAction<Vessel | null>>;
+  currentlyPlacing: Vessel | undefined;
+  setCurrentlyPlacing: React.Dispatch<React.SetStateAction<Vessel | undefined>>;
   rotateShip: React.MouseEventHandler<HTMLDivElement>;
   placeShip: (ship: Vessel) => void;
   placedShips: Vessel[];
@@ -31,7 +31,7 @@ interface GameViewProps {
   totalHitsToWin: number;
 }
 
-export const GameView = ({
+const GameView = ({
   availableShips,
   selectShip,
   currentlyPlacing,
@@ -103,3 +103,5 @@ export const GameView = ({
     </section>
   );
 };
+
+export default GameView;
