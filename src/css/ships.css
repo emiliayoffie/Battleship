@@ -1,6 +1,8 @@
 /* Importing color styles */
 @import './open-color.css';
 
+/* SHIPS STYLES */
+
 /* Root definitions for easy color and spacing management */
 :root {
   --micro-space: 0.3em;
