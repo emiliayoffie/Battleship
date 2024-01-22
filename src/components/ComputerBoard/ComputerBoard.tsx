@@ -9,7 +9,8 @@ import {
 
 import { SQUARE_STATE, Hit, Vessel } from '@/types/types';
 
-/** To do: move logic for generating computer board layout to separate function or hook to make this component cleaner and more focused */
+/** Renders the computer's board.
+ * To do: move logic for generating computer board layout to separate function or hook to make this component cleaner and more focused */
 
 type ComputerBoardProps = {
   computerShips: Vessel[];
