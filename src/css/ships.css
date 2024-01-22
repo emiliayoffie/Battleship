@@ -1,0 +1,98 @@
+/* Importing color styles */
+@import './open-color.css';
+
+/* SHIPS STYLES */
+
+/* Root definitions for easy color and spacing management */
+:root {
+  --micro-space: 0.3em;
+  --small-space: 1em;
+  --medium-space: 2em;
+}
+
+/* Styles for the ship fleet container */
+#ship-fleet {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Styles for individual battleships and their squares */
+.battleship,
+.battleship-squares {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Styling for each battleship element */
+.battleship {
+  width: 70%;
+  height: 35px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--oc-blue-7);
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.2);
+  margin-bottom: var(--small-space);
+}
+
+/* Hover effect for battleship elements */
+.battleship:hover {
+  background-color: var(--oc-indigo-3);
+  opacity: 0.9;
+}
+
+/* Active state styling for battleship elements */
+.battleship:active {
+  position: relative;
+  top: 1px;
+}
+
+/* Additional styling for a ship currently being placed */
+.placing {
+  background-color: var(--oc-indigo-2);
+}
+
+/* Styling for ship names */
+.ship-select-title {
+  font-size: 14px;
+  text-transform: capitalize;
+  font-family: 'Libre Franklin', sans-serif;
+  color: var(--oc-white);
+}
+
+/* Styles for small squares representing ship parts */
+.small-square {
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--oc-cyan-1);
+  background-color: var(--oc-cyan-3);
+}
+
+/* Firing information list styles */
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin: 5px;
+}
+
+/* Responsive design for smaller screens */
+@media screen and (max-width: 768px) {
+  #battleships {
+    max-width: 400px;
+    height: 250px;
+  }
+}
+
+/* Styling for the player title */
+.player-title {
+  color: var(--oc-red-5);
+  text-align: center;
+}

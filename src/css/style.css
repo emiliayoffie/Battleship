@@ -1,0 +1,219 @@
+@import './open-color.css';
+@import './ships.css';
+@import './board.css';
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Mukta:wght@200;300;400;500;600;700;800&family=Quicksand:wght@300..700&display=swap');
+:root {
+  --regular: 'Quicksand', sans-serif;
+  --headlines: 'Jost', sans-serif;
+  --header: 'Jost', sans-serif;
+  --small-space: 1em;
+  --medium-space: 2em;
+  --large-space: 4em;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--oc-gray-3);
+}
+
+body,
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+}
+
+main,
+section {
+  margin: var(--small-space);
+  text-align: center;
+}
+
+main {
+  padding: var(--large-space) var(--small-space) 0;
+  flex: 1;
+  max-width: 30em;
+  width: 100%;
+  flex-grow: 1;
+  margin: auto;
+  justify-content: center;
+  display:flex; 
+  flex-direction: column;
+}
+
+#game-screen {
+  width: 581px;  
+  height: 384px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+#game-screen .board {
+  margin: 2px;
+}
+
+@media screen and (max-width: 1100px) {
+  #game-screen {
+    flex-direction: column;
+  }
+}
+
+#available-ships,
+#game-info {
+  width: 200px;
+  max-height: 500px;
+  padding: var(--small-space);
+  font-family: var(--headlines);
+  text-align: center;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.game-info-box-title {
+  font-size: 22px;
+  text-transform: uppercase;
+  color: var(--oc-red-5);
+  margin-bottom: var(--small-space)
+}
+
+.game-info,
+#firing-info {
+  margin-top: var(--small-space);
+  font-family: var(--regular);
+  text-transform: none;
+  color: var(--oc-gray-7);
+  /* width: 10rem; */
+}
+
+.restart {
+  color: var(--oc-red-5);
+  font-family: var(--regular);
+  cursor: pointer;
+  font-size: 17px;
+  text-decoration: underline;
+  margin: var(--small-space) auto;
+}
+
+#game-over {
+  font-size: 30px;
+}
+
+header {
+  text-align: center;
+  margin-top: var(--large-space);
+  margin-bottom: var(--large-space);
+}
+
+h1 {
+  color: var(--oc-blue-7);
+  font-size: 60px;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-family: var(--header);
+  text-transform: uppercase;
+}
+
+h2 {
+  color: var(--oc-red-4);
+  font-family: var(--headlines);
+}
+
+p {
+  font-family: 'Jost', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+button {
+  width: 100px;
+  height: 50px;
+  border-radius: 8px;
+  font-family: var(--regular);
+  font-size: 16px;
+  margin: var(--small-space);
+  border: none;
+  background-color: var(--oc-blue-5);
+  color: var(--oc-gray-1);
+}
+
+button:hover {
+  opacity: 0.9;
+  background-color: var(--oc-red-4);
+}
+
+button:active {
+  position: relative;
+  top: 1px;
+}
+
+footer,
+footer a {
+  color: var(--oc-gray-7);
+  text-align: center;
+  text-decoration: none;
+  font-family: var(--regular);
+  margin-top: var(--large-space);
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: var(--medium-space) 0;
+  color: var(--oc-gray-7);
+  text-align: center;
+}
+footer a:hover {
+  color: var(--oc-cyan-8);
+}
+
+footer a:visited {
+  color: var(--oc-cyan-4);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--oc-gray-3);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 25px;
+  box-shadow: 0 4px 8px rgba(1, 2, 2, 0.5);
+  width: 80%;
+  max-width: 200px;
+  text-align: center;
+  width: 80%;
+}
