@@ -55,7 +55,7 @@ const PlayerFleet = ({
 
   return (
     <div id="available-ships">
-      <div className="game-info-box-title">Your Fleet</div>
+      {availableShips.length > 0 && <div className="game-info-box-title">Your Fleet</div>}
       {availableShips.length > 0 ? fleet : playButton}
     </div>
   );
