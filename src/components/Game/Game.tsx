@@ -21,7 +21,6 @@ const AVAILABLE_SHIPS: Vessel[] = [
     length: 5,
     placed: null,
     orientation: 'horizontal',
-    // position: undefined,
   },
   {
     name: 'battleship',
