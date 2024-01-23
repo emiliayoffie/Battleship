@@ -10,7 +10,7 @@ describe('WelcomeScreen', () => {
     expect(getByText('Objective of the Game')).toBeTruthy();
   });
 
-  it('calls startPlay when the PLAY button is clicked', () => {
+  it('calls startPlay when the play button is clicked', () => {
     const { getByText } = render(<WelcomeScreen startPlay={mockStartPlay} />);
     fireEvent.click(getByText('PLAY'));
     expect(mockStartPlay).toHaveBeenCalled();
