@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import WelcomeScreen from '../WelcomeScreen/WelcomeScreen';
+import WelcomeScreen from '../ui-components/WelcomeScreen/WelcomeScreen';
 import { Game } from '../Game/Game';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
+import Header from '../ui-components/Header/Header';
+import Footer from '../ui-components/Footer/Footer';
 
 import '../../css/style.css';
 
