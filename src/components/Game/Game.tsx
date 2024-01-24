@@ -253,7 +253,6 @@ export const Game = () => {
     }
 
     const randomIndex = generateRandomIndex(potentialTargets.length);
-
     const target = potentialTargets[randomIndex];
 
     setTimeout(() => {
