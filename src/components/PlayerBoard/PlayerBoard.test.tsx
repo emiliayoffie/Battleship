@@ -3,7 +3,6 @@ import { render } from '@testing-library/react';
 import PlayerBoard from './PlayerBoard';
 import { generateEmptyBoard } from '../../utils/utils';
 
-
 describe('ComputerBoard', () => {
   const mockPlaceShip = jest.fn();
   const mockSetCurrentlyPlacing = jest.fn();

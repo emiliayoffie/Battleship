@@ -24,10 +24,10 @@ describe('ComputerBoard', () => {
     placeShip: mockPlaceShip,
     placedShips: [],
     hitsByComputer: [],
-    computerShips: [], 
+    computerShips: [],
     hitsByPlayer: [],
     gameState: 'start',
-    setHitsByPlayer: mockSetHitsByPlayer, 
+    setHitsByPlayer: mockSetHitsByPlayer,
     handleComputerTurn: mockHandleComputerTurn,
     setComputerShips: mockSetComputerShips,
   };
