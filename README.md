@@ -26,7 +26,7 @@ The opponent has a board of their own which the user can see, but cannot see the
 
 ## Demo
 
-The demo version of the client-side app can be found [here](https://battleship-git-dev-emiliayoffie.vercel.app/?_vercel_share=gHgnLmpBMWdAXN2414u1KARRb5nDJd1m), deployed to Vercel.
+The demo version of the client-side app can be found [here](https://battleship-teal-theta.vercel.app/), deployed to Vercel.
 
 ![Battleship](src/public/battleship-demo.png)
 
