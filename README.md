@@ -21,7 +21,21 @@ The opponent has a board of their own which the user can see, but cannot see the
 
 1. Clone the repo & install it locally
 2. Run `npm install` to grab all of the necessary dependencies
-3. From the installed directory, run `npm run dev` - Vite will spin up a local dev server (likely on localhost:5173).
+3. From the installed directory, run `npm run dev` - Vite will spin up a local dev server (likely on localhost:5173)
 4. Navigate to the page, and start playing Battleship!
 
-![Battleship](src/public/battleship.png)
+## Demo
+
+The demo version of the client-side app can be found [here](https://battleship-84npjkkfo-emiliayoffie.vercel.app/), deployed to Vercel.
+
+![Battleship](src/public/battleship-demo.png)
+
+## Further Considerations
+
+Some MVP features have been met so far (core game logic, including computer logic for attacking neighboring cells once a ship has been hit) and creating a responsive design, styling, and some unit testing. I hope to continue to build this out to add or improve the following features:
+
+- Improve test coverage
+- Set up a Github Actions workflow
+- A11y features
+- Add TailwindCSS
+- Continue to improve compatibility with web/native
