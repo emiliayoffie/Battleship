@@ -134,7 +134,6 @@ button:active {
 /** MEDIA QUERIES*/
 
 @media screen and (max-width: 768px) {
-
   header,
   footer {
     padding: 2rem;
@@ -153,7 +152,7 @@ button:active {
   p.game-info {
     word-wrap: break-word;
     width: 100%;
-    padding: 5px; 
+    padding: 5px;
     box-sizing: border-box;
   }
 }
