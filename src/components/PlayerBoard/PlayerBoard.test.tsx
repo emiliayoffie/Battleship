@@ -1,15 +1,24 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import PlayerBoard from './PlayerBoard';
-import { generateEmptyBoard } from '../../utils/utils';
+import { generateEmptyBoard } from '@/utils/utils';
 
 describe('ComputerBoard', () => {
   const mockPlaceShip = jest.fn();
   const mockSetCurrentlyPlacing = jest.fn();
   const mockRotateShip = jest.fn();
 
+  const mockVessel = {
+    name: 'submarine',
+    length: 3,
+    position: { x: 3, y: 1 },
+    orientation: 'horizontal',
+    placed: true,
+    sunk: false,
+  };
+
   const props = {
-    currentlyPlacing: {},
+    currentlyPlacing: mockVessel,
     setCurrentlyPlacing: mockSetCurrentlyPlacing,
     rotateShip: mockRotateShip,
     placeShip: mockPlaceShip,

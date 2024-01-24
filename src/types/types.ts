@@ -24,7 +24,7 @@ export interface Vessel {
   name: string;
   length: number;
   position?: Coordinates;
-  orientation: 'vertical' | 'horizontal';
+  orientation: string;
   placed: boolean | null | undefined;
   sunk?: boolean;
 }
