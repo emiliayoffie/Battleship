@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import WelcomeScreen from '../WelcomeScreen/WelcomeScreen';
+import WelcomeScreen from '../ui-components/WelcomeScreen/WelcomeScreen';
 import { Game } from '../Game/Game';
 
 import '../../css/style.css';
