@@ -82,7 +82,6 @@ export const putVesselInLayout = (
   const newLayout = [...oldLayout];
 
   if (isVessel(item)) {
-    // The item is a Vessel
     if (
       type === SQUARE_STATE.ship ||
       type === SQUARE_STATE.forbidden ||
@@ -93,7 +92,6 @@ export const putVesselInLayout = (
       });
     }
   } else {
-    // The item is a Hit
     if (type === SQUARE_STATE.hit || type === SQUARE_STATE.miss) {
       newLayout[coordsToIndex(item.position)] = type;
     }
