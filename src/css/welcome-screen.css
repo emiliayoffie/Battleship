@@ -1,0 +1,16 @@
+@import './open-color.css';
+
+#welcome-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/** MEDIA QUERIES*/
+
+@media screen and (max-width: 600px) {
+  #welcome-screen {
+    flex-direction: column;
+  }
+}

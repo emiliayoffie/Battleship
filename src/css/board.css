@@ -82,3 +82,20 @@
   background-color: var(--oc-red-2);
   border: 1px solid var(--oc-red-3);
 }
+
+/** MEDIA QUERIES*/
+
+@media screen and (max-width: 768px) {
+  .board {
+    width: 40vw;
+    height: 40vw;
+    margin: 1em auto;
+  }
+}
+/* Additional styling for larger screens if needed */
+@media screen and (min-width: 769px) {
+  .board {
+    max-width: 600px;
+    max-height: 600px;
+  }
+}

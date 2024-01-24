@@ -5,6 +5,8 @@ import PlayerBoard from '../PlayerBoard/PlayerBoard';
 import ComputerBoard from '../ComputerBoard/ComputerBoard';
 import GameInfo from '../GameInfo/GameInfo';
 import { Hit, Vessel } from '@/types/types';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 interface GameViewProps {
   availableShips: Vessel[];
@@ -53,9 +55,13 @@ const GameView = ({
   totalHitsToWin,
 }: GameViewProps) => {
   return (
-    <section id="game-screen">
-      {/* When not in the placement phase, show game info and computer board */}
-      <div id={gameState === 'placement' ? 'board-placement' : undefined}>
+    <div id="game-view-container">
+      <Header />
+      <section
+        id={gameState === 'placement' ? 'ship-placement' : 'game-start'}
+        className="game-screen"
+      >
+        {/* When not in the placement phase, show game info and computer board */}
         <PlayerBoard
           currentlyPlacing={currentlyPlacing}
           setCurrentlyPlacing={setCurrentlyPlacing}
@@ -64,43 +70,44 @@ const GameView = ({
           placedShips={placedShips}
           hitsByComputer={hitsByComputer}
         />
-      </div>
 
-      {gameState !== 'placement' ? (
-        <>
-          <div id="game-info-placement">
-            <GameInfo
+        {gameState !== 'placement' ? (
+          <>
+            <div id="game-info-placement">
+              <GameInfo
+                gameState={gameState}
+                hitsByPlayer={hitsByPlayer}
+                hitsByComputer={hitsByComputer}
+                startAgain={startAgain}
+                isModalOpen={isModalOpen}
+                setIsModalOpen={setIsModalOpen}
+                totalHitsToWin={totalHitsToWin}
+              />
+            </div>
+            <ComputerBoard
+              computerShips={computerShips}
               gameState={gameState}
               hitsByPlayer={hitsByPlayer}
-              hitsByComputer={hitsByComputer}
-              startAgain={startAgain}
-              isModalOpen={isModalOpen}
-              setIsModalOpen={setIsModalOpen}
-              totalHitsToWin={totalHitsToWin}
+              setHitsByPlayer={setHitsByPlayer}
+              handleComputerTurn={handleComputerTurn}
+              setComputerShips={setComputerShips}
             />
-          </div>
-          <ComputerBoard
-            computerShips={computerShips}
-            gameState={gameState}
-            hitsByPlayer={hitsByPlayer}
-            setHitsByPlayer={setHitsByPlayer}
-            handleComputerTurn={handleComputerTurn}
-            setComputerShips={setComputerShips}
-          />
-        </>
-      ) : (
-        <>
-          {/* During the placement phase, show the player fleet */}
-          <PlayerFleet
-            availableShips={availableShips}
-            selectShip={selectShip}
-            currentlyPlacing={currentlyPlacing}
-            startTurn={startTurn}
-            startAgain={startAgain}
-          />
-        </>
-      )}
-    </section>
+          </>
+        ) : (
+          <>
+            {/* During the placement phase, show the player fleet */}
+            <PlayerFleet
+              availableShips={availableShips}
+              selectShip={selectShip}
+              currentlyPlacing={currentlyPlacing}
+              startTurn={startTurn}
+              startAgain={startAgain}
+            />
+          </>
+        )}
+      </section>
+      <Footer />
+    </div>
   );
 };
 
