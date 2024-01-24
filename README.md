@@ -32,7 +32,10 @@ The demo version of the client-side app can be found [here](https://battleship-t
 
 ## Further Considerations
 
-Some MVP features have been met so far (core game logic, including computer logic for attacking neighboring cells once a ship has been hit **Update: this is temporarily broken 🙃 solution is in the works**) and creating a responsive design, styling, and unit testing. I hope to continue to build this out to add or improve the following features:
+Some MVP features have been met so far (core game logic, including computer logic for attacking neighboring cells once a ship has been hit) and creating a responsive design, styling, and unit testing. 
+*Update - computer's logic to target neighbors is currently broken; a solution is in the works* 
+
+I also hope to continue to build this out to add or improve the following features:
 
 - Improve test coverage
 - Set up a Github Actions workflow
