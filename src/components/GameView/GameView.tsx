@@ -5,8 +5,8 @@ import PlayerBoard from '../PlayerBoard/PlayerBoard';
 import ComputerBoard from '../ComputerBoard/ComputerBoard';
 import GameInfo from '../GameInfo/GameInfo';
 import { Hit, Vessel } from '@/types/types';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
+import Header from '../ui-components/Header/Header';
+import Footer from '../ui-components/Footer/Footer';
 
 interface GameViewProps {
   availableShips: Vessel[];
