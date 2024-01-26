@@ -10,7 +10,7 @@ import Footer from '../ui-components/Footer/Footer';
 
 interface GameViewProps {
   availableShips: Vessel[];
-  selectShip: (shipName: string) => void;
+  chooseShip: (shipName: string) => void;
   currentlyPlacing: Vessel | undefined;
   setCurrentlyPlacing: React.Dispatch<React.SetStateAction<Vessel | undefined>>;
   rotateShip: React.MouseEventHandler<HTMLDivElement>;
@@ -35,7 +35,7 @@ interface GameViewProps {
 
 const GameView = ({
   availableShips,
-  selectShip,
+  chooseShip,
   currentlyPlacing,
   setCurrentlyPlacing,
   rotateShip,
@@ -98,7 +98,7 @@ const GameView = ({
             {/* During the placement phase, show the player fleet */}
             <PlayerFleet
               availableShips={availableShips}
-              selectShip={selectShip}
+              chooseShip={chooseShip}
               currentlyPlacing={currentlyPlacing}
               startTurn={startTurn}
               startAgain={startAgain}
