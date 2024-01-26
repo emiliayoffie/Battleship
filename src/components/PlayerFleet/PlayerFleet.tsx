@@ -6,7 +6,7 @@ import { Vessel } from '@/types/types';
 
 interface PlayerFleetProps {
   availableShips: Vessel[];
-  selectShip: (shipName: string) => void;
+  chooseShip: (shipName: string) => void;
   currentlyPlacing: Vessel | undefined;
   startTurn: () => void;
   startAgain: () => void;
@@ -14,7 +14,7 @@ interface PlayerFleetProps {
 
 const PlayerFleet = ({
   availableShips,
-  selectShip,
+  chooseShip,
   currentlyPlacing,
   startTurn,
   startAgain,
@@ -24,7 +24,7 @@ const PlayerFleet = ({
   /** Generate ShipSelect components for each available ship */
   const ShipSelects = shipsLeft.map((shipName) => (
     <ShipSelect
-      selectShip={selectShip}
+      chooseShip={chooseShip}
       key={shipName}
       isCurrentlyPlacing={
         !!(currentlyPlacing && currentlyPlacing.name === shipName)

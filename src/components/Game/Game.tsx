@@ -113,8 +113,8 @@ export const Game = () => {
     }
   }, [hitsByPlayer, hitsByComputer, totalHitsToWin]);
 
-  /** Player Actions */
-  const selectShip = (shipName: string) => {
+  /** Player Moves */
+  const chooseShip = (shipName: string) => {
     const shipIdx = availableShips.findIndex((ship) => ship.name === shipName);
     const shipToPlace = availableShips[shipIdx];
 
@@ -165,7 +165,7 @@ export const Game = () => {
     );
   };
 
-  /** Computer Actions */
+  /** Computer Moves */
   const generateComputerShips = () => {
     const placedComputerShips = placeAllComputerShips(
       AVAILABLE_SHIPS.slice().map((ship) => ({
@@ -218,12 +218,13 @@ export const Game = () => {
       layout
     );
 
-    layout = placedShips.reduce((prevLayout, currentShip) => {
-      const squareState = currentShip.sunk
-        ? SQUARE_STATE.ship_sunk
-        : SQUARE_STATE.ship;
-      return putVesselInLayout(prevLayout, currentShip, squareState);
-    }, layout);
+    layout = placedShips.reduce(
+      (prevLayout, currentShip) =>
+        currentShip.sunk
+          ? putVesselInLayout(prevLayout, currentShip, SQUARE_STATE.ship_sunk)
+          : prevLayout,
+      layout
+    );
 
     const successfulComputerHits = hitsByComputer.filter(
       (hit: Hit) => hit.type === SQUARE_STATE.hit
@@ -278,7 +279,7 @@ export const Game = () => {
     <React.Fragment>
       <GameView
         availableShips={availableShips}
-        selectShip={selectShip}
+        chooseShip={chooseShip}
         currentlyPlacing={currentlyPlacing}
         setCurrentlyPlacing={setCurrentlyPlacing}
         rotateShip={rotateShip}

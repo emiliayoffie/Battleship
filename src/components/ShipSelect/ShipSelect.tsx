@@ -5,14 +5,14 @@ import { Vessel } from '@/types/types';
 
 interface ShipSelectProps {
   shipName: string;
-  selectShip: (shipName: string) => void;
+  chooseShip: (shipName: string) => void;
   availableShips: Vessel[];
   isCurrentlyPlacing: boolean;
 }
 
 const ShipSelect = ({
   shipName,
-  selectShip,
+  chooseShip,
   availableShips,
   isCurrentlyPlacing,
 }: ShipSelectProps) => {
@@ -28,7 +28,7 @@ const ShipSelect = ({
   return (
     <div
       id={`${shipName}-battleship`}
-      onClick={() => selectShip(shipName)}
+      onClick={() => chooseShip(shipName)}
       key={`${shipName}`}
       className={isCurrentlyPlacing ? 'battleship placing' : 'battleship'}
     >
