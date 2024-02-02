@@ -193,66 +193,29 @@ export const placeCPUShipOnBoard = (
 
 /** Determine neighboring squares for a given set of coordinates (used for computer's firing logic) */
 export const getNeighbors = (coords: Coordinates) => {
-  const firstRow = coords.y === 0;
-  const lastRow = coords.y === 9;
-  const firstColumn = coords.x === 0;
-  const lastColumn = coords.x === 9;
-
-  /**  Check each direction and add to neighbors if within board bounds */
   const neighbors = [];
-  // coords.y === 0;
-  if (firstRow) {
-    neighbors.push(
-      { x: coords.x + 1, y: coords.y },
-      { x: coords.x - 1, y: coords.y },
-      { x: coords.x, y: coords.y + 1 }
-    );
+
+  // Add neighbor to the left if not on the first column
+  if (coords.x > 0) {
+    neighbors.push(coordsToIndex({ x: coords.x - 1, y: coords.y }));
   }
 
-  // coords.y === 9;
-  if (lastRow) {
-    neighbors.push(
-      { x: coords.x + 1, y: coords.y },
-      { x: coords.x - 1, y: coords.y },
-      { x: coords.x, y: coords.y - 1 }
-    );
-  }
-  // coords.x === 0
-  if (firstColumn) {
-    neighbors.push(
-      { x: coords.x + 1, y: coords.y } /*right*/,
-      { x: coords.x, y: coords.y + 1 } /*down*/,
-      { x: coords.x, y: coords.y - 1 } /*up*/
-    );
+  // Add neighbor to the right if not on the last column
+  if (coords.x < BOARD_COLUMNS - 1) {
+    neighbors.push(coordsToIndex({ x: coords.x + 1, y: coords.y }));
   }
 
-  // coords.x === 9
-  if (lastColumn) {
-    neighbors.push(
-      { x: coords.x - 1, y: coords.y }, // left
-      { x: coords.x, y: coords.y + 1 }, // down
-      { x: coords.x, y: coords.y - 1 } // up
-    );
+  // Add neighbor above if not on the first row
+  if (coords.y > 0) {
+    neighbors.push(coordsToIndex({ x: coords.x, y: coords.y - 1 }));
   }
 
-  if (!lastColumn || !firstColumn || !lastRow || !firstRow) {
-    neighbors.push(
-      { x: coords.x - 1, y: coords.y }, // left
-      { x: coords.x + 1, y: coords.y }, // right
-      { x: coords.x, y: coords.y - 1 }, // up
-      { x: coords.x, y: coords.y + 1 } // down
-    );
+  // Add neighbor below if not on the last row
+  if (coords.y < BOARD_ROWS - 1) {
+    neighbors.push(coordsToIndex({ x: coords.x, y: coords.y + 1 }));
   }
-  /** Convert coordinates to board indices and filter out duplicates */
-  const filteredResult = [
-    ...new Set(
-      neighbors
-        .map((coords) => coordsToIndex(coords))
-        .filter((number) => number >= 0 && number < BOARD)
-    ),
-  ];
 
-  return filteredResult;
+  return neighbors;
 };
 
 export const isShipSunk = (vessel: Vessel, hits: Hit[]): boolean => {
